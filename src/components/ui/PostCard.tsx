@@ -6,7 +6,7 @@ const PostCard = ({ post }: { post: TPost }) => {
   return (
     <div className="card bg-base-100 w-96 shadow-xl">
       <figure>
-        <Image src={post.image} alt="Shoes" width={200} height={200} />
+        <Image src={post.image} alt="Shoes" className="rounded-lg" width={200} height={200} />
       </figure>
       <div className="card-body">
         <h2 className="card-title">
