@@ -1,26 +1,26 @@
-import PostCard from '@/components/ui/PostCard';
-import { getAllPosts } from '@/services/PostService';
-import { TPost } from '@/types';
-import React from 'react';
+import PostCard from "@/components/ui/PostCard";
+import { getAllPosts } from "@/services/PostService";
+import { TPost } from "@/types";
+import React from "react";
 
-const AllPosts = async() => {
-    const posts = await getAllPosts("ssr");
-    return (
-        <div className="my-10 w-[90%] mx-auto">
-        <h1 className="text-4xl text-center">
-          All <span className="text-fuchsia-800">Posts</span>
-        </h1>
-        <p className="text-gray-400 text-center italic w-2/4 mx-auto mt-2">
-          Discover, review, and rate your favorite books. Join a community of book
-          lovers and share your reading experiences.
-        </p>
-        <div className="grid grid-cols-3 my-12 gap-8">
-          {posts.map((post: TPost) => (
-            <PostCard key={post.id} post={post} />
-          ))}
-        </div>
+const AllPosts = async () => {
+  const posts = await getAllPosts("ssr", true);
+  return (
+    <div className="my-10 w-[90%] mx-auto">
+      <h1 className="text-4xl text-center">
+        All <span className="text-fuchsia-800">Posts</span>
+      </h1>
+      <p className="text-gray-400 text-center italic w-2/4 mx-auto mt-2">
+        Discover, review, and rate your favorite books. Join a community of book
+        lovers and share your reading experiences.
+      </p>
+      <div className="grid grid-cols-3 my-12 gap-8">
+        {posts.map((post: TPost) => (
+          <PostCard key={post.id} post={post} />
+        ))}
       </div>
-    );
+    </div>
+  );
 };
 
 export default AllPosts;
