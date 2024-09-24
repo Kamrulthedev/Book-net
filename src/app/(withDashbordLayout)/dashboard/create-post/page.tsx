@@ -1,4 +1,7 @@
-import { getAllPosts } from "@/services/PostService";
+import { CreatePost, getAllPosts } from "@/services/PostService";
+import { TPost } from "@/types";
+import { revalidateTag } from "next/cache";
+import Swal from "sweetalert2";
 
 const CreatePostPage = () => {
   const handelCreatePost = async (formData: FormData) => {
@@ -14,7 +17,14 @@ const CreatePostPage = () => {
       image: formData.get("image"),
     };
 
-    console.log(bookData);
+    try {
+      const res = await CreatePost(bookData as TPost);
+      console.log(res);
+      revalidateTag("Posts")
+      Swal.fire("Post Create Successfully !");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
