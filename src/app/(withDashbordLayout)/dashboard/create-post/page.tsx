@@ -1,16 +1,35 @@
+import { getAllPosts } from "@/services/PostService";
+
 const CreatePostPage = () => {
+  const handelCreatePost = async (formData: FormData) => {
+    "use server";
+
+    const posts = await getAllPosts();
+
+    const bookData = {
+      id: JSON.stringify(posts.length + 1),
+      name: formData.get("bookName"),
+      description: formData.get("description"),
+      category: formData.get("category"),
+      image: formData.get("image"),
+    };
+
+    console.log(bookData);
+  };
+
   return (
     <div className=" shadow-xl bg-base-100 w-[80%] my-12">
       <h1 className="text-center text-4xl">
         Add Your <span className="text-fuchsia-900">Book Review</span>
       </h1>
-      <form className="p-5">
+      <form action={handelCreatePost} className="p-5">
         <div className="form-control">
           <label className="label">
             <span className="label-text">Book Name</span>
           </label>
           <input
-            type="text"
+            name="bookName"
+            type="name"
             placeholder="Book Name"
             className="input input-bordered"
             required
@@ -22,6 +41,7 @@ const CreatePostPage = () => {
             <span className="label-text">Description</span>
           </label>
           <textarea
+            name="description"
             placeholder="Description"
             className="textarea textarea-bordered"
             required
@@ -33,6 +53,7 @@ const CreatePostPage = () => {
             <span className="label-text">Category</span>
           </label>
           <input
+            name="category"
             type="text"
             placeholder="Fantasy, Fiction, etc."
             className="input input-bordered"
@@ -45,6 +66,7 @@ const CreatePostPage = () => {
             <span className="label-text">Image URL</span>
           </label>
           <input
+            name="image"
             type="url"
             placeholder="Image URL"
             className="input input-bordered"
